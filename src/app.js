@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Searchform} from './search-form'
-
+import axios from 'axios'
 
 const Header = (props) => (
     <header>
         <h1>{props.name}</h1>
-        <Searchform />
+        
     </header>
 )
 
@@ -14,35 +14,43 @@ const Movies = (props) => (
     <ul>
         {
             props.movies.map((movies,i) => (
-                    <li key={i}>{ movies.title }</li>
+                    <li key={i}>{ movies.Title }</li>
                 )
             )
         }
     </ul>
 )
 
-const App = () => {
-    const name = "frontech"
-    const movies = [
-        {
-            title : 'Snowden'
-        },
-        {
-            title : 'The Accountant'
-        },
-        {
-            title : "Don't Breathe"
+class App extends React.Component {
+    constructor(props){
+        super(props)
+        this.name = "frontech"
+        this.state = {
+            movies: []
         }
-    ]
+    }
 
-    return(
-        <section>
-            <Header name = {name}/>
-            <Movies 
-                movies = {movies}
-            />
-        </section>
-    )
+    onSearch(query){
+        event.preventDefault()
+        axios.get(`http://www.omdbapi.com/?s=${query}&y=&plot=short&r=json`)
+            .then(response => {
+                const movie = response.data.Search
+                this.setState({
+                    movies: movie
+                })
+            })
+        
+    }
+
+    render(){
+        return(
+            <section>
+                <Header name = {this.name} />
+                <Searchform onSearchSubmit = {this.onSearch.bind(this)}/>
+                <Movies movies = {this.state.movies} />
+            </section>
+        )
+    }
 }
 
 
