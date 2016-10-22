@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 export class Searchform extends React.Component{
 
@@ -21,6 +22,8 @@ export class Searchform extends React.Component{
     onSearchClick(event){
         event.preventDefault()
         console.log("onSearchClick",this.state.query)
+        const omdbURL = `http://www.omdbapi.com/?s=${this.state.query}&y=&plot=short&r=json`
+        axios.get(omdbURL).then(response => console.log(response.data))
     }
 
     render(){
