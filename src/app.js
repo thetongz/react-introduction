@@ -3,11 +3,16 @@ const name = "TheTonG-React"
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+function onSearchClick(event){
+    event.preventDefault()
+    console.log("onSearchClick",event)
+}
+
 const Searchform = () => {
     return (
         <form>
             <input type="text" />
-            <button type="submit">Search</button>
+            <button onClick={onSearchClick}>Search</button>
         </form>
     )
 }
@@ -19,11 +24,14 @@ const Header = (props) => (
     </header>
 )
 
-const Items = (props) => (
+const Movies = (props) => (
     <ul>
         {
-            props.items.map(items => (
-                    <li>{ items }</li>
+            props.movies.map(movies => (
+                    <li key={movies.id}>{ movies.title }</li>
+                    /*
+                        or use (movies,i) then key={i}
+                    */
                 )
             )
         }
@@ -32,36 +40,36 @@ const Items = (props) => (
 
 const Content = (props) => (
     <section>
-        <p>{props.content.toTimeString()}</p>
-        <Items items = {props.items}/>
+        <Movies movies = {props.movies}/>
     </section>
 )
 
 const App = () => {
     const name = "frontech"
-    const content = new Date()
-    const items = [
-        "Kahn",
-        "John",
-        "Leica",
-        "Mercy"
+    const movies = [
+        {
+            id : 1,
+            title : 'Snowden'
+        },
+        {
+            id: 2,
+            title : 'The Accountant'
+        },
+        {
+            id: 3,
+            title : "Don't Breathe"
+        }
     ]
 
     return(
         <section>
             <Header name = {name}/>
             <Content 
-                content = {content}
-                items = {items}
+                movies = {movies}
             />
         </section>
     )
 }
 
 
-
-function run () {
-    ReactDOM.render(<App/> , document.getElementById('app'))
-}
-
-setInterval(run , 500)
+ReactDOM.render(<App/> , document.getElementById('app'))
