@@ -1,20 +1,37 @@
-const name = "TheTonG-React"
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 
 class Searchform extends React.Component{
 
+    constructor(props){
+        super(props)
+        this.state = {
+            query: ''
+        }
+    }
+
+
+    onQueryChange(event){
+        const query = event.target.value
+        console.log('this.onQueryChange' , query)
+        this.setState({
+            query: query
+        })
+    }
+
     onSearchClick(event){
         event.preventDefault()
-        console.log("onSearchClick",event)
+        console.log("onSearchClick",this.state.query)
     }
 
     render(){
         return (
             <form>
-                <input type="text" />
-                <button onClick={this.onSearchClick}>Search</button>
+                <input type="text" 
+                    value={this.state.query} 
+                    onChange={this.onQueryChange.bind(this)}
+                />
+                <button onClick={this.onSearchClick.bind(this)}>Search</button>
             </form>
         )
     }
