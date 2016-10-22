@@ -3,18 +3,21 @@ const name = "TheTonG-React"
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-function onSearchClick(event){
-    event.preventDefault()
-    console.log("onSearchClick",event)
-}
+class Searchform extends React.Component{
 
-const Searchform = () => {
-    return (
-        <form>
-            <input type="text" />
-            <button onClick={onSearchClick}>Search</button>
-        </form>
-    )
+    onSearchClick(event){
+        event.preventDefault()
+        console.log("onSearchClick",event)
+    }
+
+    render(){
+        return (
+            <form>
+                <input type="text" />
+                <button onClick={this.onSearchClick}>Search</button>
+            </form>
+        )
+    }
 }
 
 const Header = (props) => (
