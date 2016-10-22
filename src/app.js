@@ -13,36 +13,24 @@ const Header = (props) => (
 const Movies = (props) => (
     <ul>
         {
-            props.movies.map(movies => (
-                    <li key={movies.id}>{ movies.title }</li>
-                    /*
-                        or use (movies,i) then key={i}
-                    */
+            props.movies.map((movies,i) => (
+                    <li key={i}>{ movies.title }</li>
                 )
             )
         }
     </ul>
 )
 
-const Content = (props) => (
-    <section>
-        <Movies movies = {props.movies}/>
-    </section>
-)
-
 const App = () => {
     const name = "frontech"
     const movies = [
         {
-            id : 1,
             title : 'Snowden'
         },
         {
-            id: 2,
             title : 'The Accountant'
         },
         {
-            id: 3,
             title : "Don't Breathe"
         }
     ]
@@ -50,7 +38,7 @@ const App = () => {
     return(
         <section>
             <Header name = {name}/>
-            <Content 
+            <Movies 
                 movies = {movies}
             />
         </section>
