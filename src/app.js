@@ -32,6 +32,9 @@ class Search extends React.Component {
         this.state = {
             movies: []
         }
+        if(props.location.query.s){
+            this.onSearch(props.location.query.s)
+        }
     }
 
     onSearch(query){
@@ -57,9 +60,33 @@ class Search extends React.Component {
     }
 }
 
+const BatmanQuery ={
+    pathname: '/search',
+    query: {
+        s: "batman"
+    }
+}
+const CaptainAmerica ={
+    pathname: '/search',
+    query: {
+        s: "Captain America"
+    }
+}
+const JasonBourne ={
+    pathname: '/search',
+    query: {
+        s: "Jason Bourne"
+    }
+}
+
 const Home = () =>(
     <section>
         <h1>This is home, right?</h1>
+        <ul>
+            <li><Link to={BatmanQuery}>Batman</Link></li>
+            <li><Link to={CaptainAmerica}>Captain America</Link></li>
+            <li><Link to={JasonBourne}>Jason Bourne</Link></li>
+        </ul>
     </section>
 )
 
