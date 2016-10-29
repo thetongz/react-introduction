@@ -5,8 +5,14 @@ export class Searchform extends React.Component{
 
     constructor(props){
         super(props)
-        this.state = {
-            query: ''
+        if(props.searchtitle){
+            this.state = {
+                query: props.searchtitle
+            }
+        }else{
+            this.state = {
+                query: ''
+            }
         }
     }
 
