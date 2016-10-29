@@ -14,12 +14,20 @@ const Header = (props) => (
 const Movies = (props) => (
     <ul>
         {
-            props.movies.map((movies,i) => (
-                    <li key={i}>
-                        <h4>{ movies.Title }</h4>
-                        <img src={ movies.Poster} />
-                    </li>
-                )
+            props.movies.map((movies,i) => {
+                    const query = {
+                        pathname: '/detail',
+                        query:{
+                            id: movies.imdbID
+                        }
+                    }
+                    return(
+                        <li key={i}>
+                            <h4><Link to={query}>{ movies.Title }</Link></h4>
+                            <img src={ movies.Poster} />
+                        </li>
+                    )
+                }
             )
         }
     </ul>
