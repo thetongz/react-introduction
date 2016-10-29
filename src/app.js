@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {Searchform} from './search-form'
 import axios from 'axios'
+import {Router,Route,hashHistory,link} from 'react-router'
 
 const Header = (props) => (
     <header>
@@ -14,14 +15,17 @@ const Movies = (props) => (
     <ul>
         {
             props.movies.map((movies,i) => (
-                    <li key={i}>{ movies.Title }</li>
+                    <li key={i}>
+                        <h4>{ movies.Title }</h4>
+                        <img src={ movies.Poster} />
+                    </li>
                 )
             )
         }
     </ul>
 )
 
-class App extends React.Component {
+class Search extends React.Component {
     constructor(props){
         super(props)
         this.name = "frontech"
@@ -35,6 +39,7 @@ class App extends React.Component {
         axios.get(`http://www.omdbapi.com/?s=${query}&y=&plot=short&r=json`)
             .then(response => {
                 const movie = response.data.Search
+                console.log(movie)
                 this.setState({
                     movies: movie
                 })
@@ -53,5 +58,30 @@ class App extends React.Component {
     }
 }
 
+class Home extends React.Component{
+    render(){
+        return(
+            <h1>This is Home</h1>
+        )
+    }
+}
 
-ReactDOM.render(<App/> , document.getElementById('app'))
+class Main extends React.Component{
+
+
+    render(){
+        return(
+            <Router history={hashHistory}>
+                <Route path="/"
+                    component={Home}
+                />
+                <Route path="/search"
+                    component={Search}
+                />
+            </Router>
+        )
+    }
+}
+
+
+ReactDOM.render(<Main/> , document.getElementById('app'))
