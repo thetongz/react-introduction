@@ -32,6 +32,7 @@ class Search extends React.Component {
         this.state = {
             movies: []
         }
+        this.title = props.location.query.s?props.location.query.s:""
         if(props.location.query.s){
             this.onSearch(props.location.query.s)
         }
@@ -53,7 +54,7 @@ class Search extends React.Component {
         return(
             <section>
                 <Header name = {this.name} />
-                <Searchform onSearchSubmit = {this.onSearch.bind(this)}/>
+                <Searchform onSearchSubmit = {this.onSearch.bind(this)} searchtitle={this.title}/>
                 <Movies movies = {this.state.movies} />
             </section>
         )
@@ -90,11 +91,41 @@ const Home = () =>(
     </section>
 )
 
-const Detail = () =>(
-    <section>
-        <h1>De de de dee de de detail</h1>
-    </section>
-)
+
+class MovieDetail extends React.Component {
+
+    constructor(props){
+        super(props)
+        this.state = {
+            movie: {
+                Title: "Unknown"
+            }
+        }
+        if(props.location.query.id){
+            const id = props.location.query.id
+            axios.get(`http://www.omdbapi.com/?i=${id}&y=&plot=short&r=json`)
+                .then(response =>{
+                    const movie = response.data
+                    this.setState({
+                        movie: movie
+                    })
+                })
+        }
+    }
+
+    render(){
+        const {Title,Genre,Poster} = this.state.movie
+        return(
+            <section>
+                <h1>{Title}</h1>
+                <small>Genre : {Genre}</small>
+                <div>
+                    <img src={Poster} />
+                </div>
+            </section>
+        )
+    }
+}
 
 const Nav = () => (
     <nav>
@@ -120,8 +151,8 @@ class Main extends React.Component{
         return(
             <Router history={hashHistory}>
                 <Route path="/" component={App} >
-                    <IndexRoute path="home" component={Home} />
-                    <Route path="detail" component={Detail} />
+                    <IndexRoute component={Home} />
+                    <Route path="detail" component={MovieDetail} />
                     <Route path="search" component={Search} />
                 </Route>
             </Router>
