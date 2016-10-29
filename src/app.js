@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {Searchform} from './search-form'
 import axios from 'axios'
-import {Router,Route,hashHistory,link} from 'react-router'
+import {Router,Route,hashHistory,Link} from 'react-router'
 
 const Header = (props) => (
     <header>
@@ -50,6 +50,7 @@ class Search extends React.Component {
     render(){
         return(
             <section>
+                <Nav />
                 <Header name = {this.name} />
                 <Searchform onSearchSubmit = {this.onSearch.bind(this)}/>
                 <Movies movies = {this.state.movies} />
@@ -58,14 +59,21 @@ class Search extends React.Component {
     }
 }
 
-class Home extends React.Component{
-    render(){
-        return(
-            <h1>This is Home</h1>
-        )
-    }
-}
+const Home = () =>(
+    <section>
+        <Nav />
+        <h1>This is home</h1>
+    </section>
+)
 
+const Nav = () => (
+    <nav>
+        <ul>
+            <li><Link to="/"> Home </Link></li>
+            <li><Link to="/search"> Search </Link></li>
+        </ul>
+    </nav>
+)
 class Main extends React.Component{
 
 
