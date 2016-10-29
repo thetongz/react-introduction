@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {Searchform} from './search-form'
 import axios from 'axios'
-import {Router,Route,hashHistory,Link} from 'react-router'
+import {Router,Route,hashHistory,Link,IndexRoute} from 'react-router'
 
 const Header = (props) => (
     <header>
@@ -39,7 +39,6 @@ class Search extends React.Component {
         axios.get(`http://www.omdbapi.com/?s=${query}&y=&plot=short&r=json`)
             .then(response => {
                 const movie = response.data.Search
-                console.log(movie)
                 this.setState({
                     movies: movie
                 })
@@ -50,7 +49,6 @@ class Search extends React.Component {
     render(){
         return(
             <section>
-                <Nav />
                 <Header name = {this.name} />
                 <Searchform onSearchSubmit = {this.onSearch.bind(this)}/>
                 <Movies movies = {this.state.movies} />
@@ -61,8 +59,13 @@ class Search extends React.Component {
 
 const Home = () =>(
     <section>
-        <Nav />
-        <h1>This is home</h1>
+        <h1>This is home, right?</h1>
+    </section>
+)
+
+const Detail = () =>(
+    <section>
+        <h1>De de de dee de de detail</h1>
     </section>
 )
 
@@ -70,22 +73,30 @@ const Nav = () => (
     <nav>
         <ul>
             <li><Link to="/"> Home </Link></li>
+            <li><Link to="/detail"> Detail </Link></li>
             <li><Link to="/search"> Search </Link></li>
         </ul>
     </nav>
 )
+
+const App = props => (
+    <section>
+        <Nav />
+        {props.children}
+    </section>
+)
+
 class Main extends React.Component{
 
 
     render(){
         return(
             <Router history={hashHistory}>
-                <Route path="/"
-                    component={Home}
-                />
-                <Route path="/search"
-                    component={Search}
-                />
+                <Route path="/" component={App} >
+                    <IndexRoute path="home" component={Home} />
+                    <Route path="detail" component={Detail} />
+                    <Route path="search" component={Search} />
+                </Route>
             </Router>
         )
     }
