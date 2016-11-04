@@ -24,7 +24,6 @@ const Movies = (props) => (
                     return(
                         <li key={i}>
                             <h4><Link to={query}>{ movies.Title }</Link></h4>
-                            <img src={ movies.Poster} />
                         </li>
                     )
                 }
