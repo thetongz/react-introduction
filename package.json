@@ -4,9 +4,10 @@
   "description": "Introduction to React",
   "main": "index.js",
   "scripts": {
+    "clean": "rm -f /dist/",
     "copy":  "cp src/index.html dist",
     "start": "./node_modules/.bin/webpack-dev-server --content-base dist",
-    "build": "npm run copy && ./node_modules/.bin/webpack --display-error-details"
+    "build": "npm run clean && npm run copy && ./node_modules/.bin/webpack --display-error-details"
   },
   "author": "TheTonG",
   "license": "MIT",
