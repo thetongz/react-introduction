@@ -17,9 +17,9 @@ var config = {
                 }
             },
             {
-                test: /\.css$/,
+                test: /\.scss$/,
                 include: path.join(__dirname, 'src'),
-                loader: ExtractTextPlugin.extract('style', 'css')
+                loader: ExtractTextPlugin.extract('style', 'css!sass')
             }
         ]
     },
