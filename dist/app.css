@@ -1,8 +1,0 @@
-body {
-  color: yellow; }
-  body ul.list li {
-    color: red; }
-    body ul.list li a {
-      font-weight: bold; }
-    body ul.list li a.thin {
-      font-weight: normal; }
