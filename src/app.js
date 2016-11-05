@@ -13,7 +13,7 @@ const Header = (props) => (
 )
 
 const Movies = (props) => (
-    <ul>
+    <ul className="list">
         {
             props.movies.map((movies,i) => {
                     const query = {
